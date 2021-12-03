@@ -1,7 +1,8 @@
-﻿using Day2;
+﻿string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
 
-string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
-var sub = new Submarine();
+var depth = 0;
+var distance = 0;
+var aim = 0;
 
 foreach (string line in File.ReadLines(filePath))
 {
@@ -12,15 +13,15 @@ foreach (string line in File.ReadLines(filePath))
     switch (command)
     {
         case "forward":
-            sub.Distance += amount;
-            sub.Depth += amount * sub.Aim;
+            distance += amount;
+            depth += amount * aim;
             break;
         case "down":
-            sub.Aim += amount;
+            aim += amount;
             break;
         case "up":
-            sub.Aim -= amount;
+            aim -= amount;
             break;
     }
 }
-Console.WriteLine(sub.Depth * sub.Distance);
+Console.WriteLine(depth * distance);
