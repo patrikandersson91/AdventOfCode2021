@@ -1,4 +1,4 @@
-﻿#<span style='color:red;'>🎅</span> Advent of code 2021 <span style='color:green;'>🎅</span> 
+﻿#🎅 Advent of code 2021 🎅
 
 ### Completed tasks
 
