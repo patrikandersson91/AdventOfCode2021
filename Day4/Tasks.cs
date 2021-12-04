@@ -4,93 +4,60 @@
     {
         public static int Task1()
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
-            List<string> rawList = new(File.ReadAllText(filePath).Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries));
+            List<string> rawList = GetRawList();
 
-            // Get all bingo numbers we will run later on
-            List<int> bingoNumbers = new(rawList.First().Split(",").Select(int.Parse).ToList());
+            List<int> bingoNumbers = GetBingoNumbers(rawList);
 
-            // Create all boards
-            var number = 0;
-            List<Board> boards = new();
-            foreach (var item in rawList)
-            {
-                // Continue if first line (bingo numbers)
-                if (number == 0) { number++; continue; }
-                var newBoard = new Board(number);
+            List<Board> boards = CreateBoards(rawList);
 
-                // Create horizontal rows
-                List<string> rawRows = new(item.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries));
-                foreach (var rawRow in rawRows)
-                {
-                    List<int> row = new(rawRow.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList());
-                    BoardRow newBoardRow = new(true);
-                    foreach (var nr in row)
-                    {
-                        newBoardRow.Numbers.Add(new RowNumber(nr));
-                    }
-                    newBoard.Rows.Add(newBoardRow);
-                }
-
-                // Create vertical rows from horizontal rows
-                List<BoardRow> horizontalRows = new(newBoard.Rows);
-                for (int i = 0; i < horizontalRows.Count(); i++)
-                {
-                    BoardRow newBoardRow = new(false);
-                    for (int j = 0; j < horizontalRows.Count(); j++)
-                    {
-                        newBoardRow.Numbers.Add(new RowNumber(horizontalRows[j].Numbers[i].Number));
-                    }
-                    newBoard.Rows.Add(newBoardRow);
-                }
-
-                boards.Add(newBoard);
-                number++;
-            }
-
-            // Go number by number until one board wins and return calculated sum
             foreach (var bingoNr in bingoNumbers)
             {
-                foreach (var board in boards)
-                {
-                    foreach (var row in board.Rows)
-                    {
-                        foreach (var nr in row.Numbers.Where(x => !x.Marked))
-                        {
-                            if (nr.Number == bingoNr)
-                            {
-                                nr.Marked = true;
-                                if (row.Numbers.All(x => x.Marked))
-                                {
-                                    return board.Rows.Where(r => r.Horizontal).Sum(x => x.Numbers.Where(i => !i.Marked).Sum(s => s.Number)) * bingoNr;
-                                }
-                            }
-                        }
-                    }
-                }
+                 var result = CheckBingoNumber(boards, bingoNr, true);
+                if (result is not null) { return result.Value; }
             }
-            return 0;
+
+            throw new Exception("Could not find winning board.");
         }
 
         public static int Task2()
         {
+            List<string> rawList = GetRawList();
+
+            List<int> bingoNumbers = GetBingoNumbers(rawList);
+
+            List<Board> boards = CreateBoards(rawList);
+
+            foreach (var bingoNr in bingoNumbers)
+            {
+                var result = CheckBingoNumber(boards, bingoNr, false);
+                if(result is not null) { return result.Value; }
+            }
+            
+            throw new Exception("Could not find last winning board.");
+        }
+
+
+        private static List<string> GetRawList()
+        {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
-            List<string> rawList = new(File.ReadAllText(filePath).Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries));
+            return new(File.ReadAllText(filePath).Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries));
+        }
 
-            // Get all bingo numbers we will run later on
-            List<int> bingoNumbers = new(rawList.First().Split(",").Select(int.Parse).ToList());
+        private static List<int> GetBingoNumbers(List<string> rawList)
+        {
+            return new(rawList.First().Split(",").Select(int.Parse).ToList());
+        }
 
-            // Create all boards
-            var number = 0;
+        private static List<Board> CreateBoards(List<string> rawList)
+        {
             List<Board> boards = new();
             foreach (var item in rawList)
             {
-                // Continue if first line (bingo numbers)
-                if (number == 0) { number++; continue; }
-                var newBoard = new Board(number);
+                if (rawList.First() == item) { continue; }
+                var newBoard = new Board();
+                List<string> rawRows = new(item.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries));
 
                 // Create horizontal rows
-                List<string> rawRows = new(item.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries));
                 foreach (var rawRow in rawRows)
                 {
                     List<int> row = new(rawRow.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList());
@@ -102,12 +69,12 @@
                     newBoard.Rows.Add(newBoardRow);
                 }
 
-                // Create vertical rows from horizontal rows
+                // Create vertical rows
                 List<BoardRow> horizontalRows = new(newBoard.Rows);
-                for (int i = 0; i < horizontalRows.Count(); i++)
+                for (int i = 0; i < horizontalRows.Count; i++)
                 {
                     BoardRow newBoardRow = new(false);
-                    for (int j = 0; j < horizontalRows.Count(); j++)
+                    for (int j = 0; j < horizontalRows.Count; j++)
                     {
                         newBoardRow.Numbers.Add(new RowNumber(horizontalRows[j].Numbers[i].Number));
                     }
@@ -115,38 +82,47 @@
                 }
 
                 boards.Add(newBoard);
-                number++;
             }
+            return boards;
+        }
 
-            // Go number by number until last board wins and return calculated sum
-            foreach (var bingoNr in bingoNumbers)
+        private static int? CheckBingoNumber(List<Board> boards, int number, bool winning)
+        {
+            foreach (var board in boards.Where(x => !x.Finished))
             {
-                foreach (var board in boards.Where(x=>x.Placement is null))
+                foreach (var row in board.Rows)
                 {
-                    foreach (var row in board.Rows)
+                    foreach (var nr in row.Numbers.Where(x => !x.Marked))
                     {
-                        foreach (var nr in row.Numbers.Where(x => !x.Marked))
+                        if (nr.Number == number)
                         {
-                            if (nr.Number == bingoNr)
+                            nr.Marked = true;
+                            if (IsBingo(row))
                             {
-                                nr.Marked = true;
-                                if (row.Numbers.All(x => x.Marked))
+                                if (!winning && boards.Count(x => !x.Finished) > 1)
                                 {
-                                    if (boards.Count(x => x.Placement is null) > 1)
-                                    {
-                                        board.Placement = boards.Max(x => x.Placement) == null ? 1 : boards.Max(x => x.Placement).Value + 1;
-                                    }
-                                    else
-                                    {
-                                        return board.Rows.Where(r => r.Horizontal).Sum(x => x.Numbers.Where(i => !i.Marked).Sum(s => s.Number)) * bingoNr;
-                                    }
+                                    board.Finished = true;
+                                }
+                                else
+                                {
+                                    return CalculateBoard(board) * number;
                                 }
                             }
                         }
                     }
                 }
             }
-            return 0;
+            return null;
+        }
+
+        private static bool IsBingo(BoardRow row)
+        {
+            return row.Numbers.All(x => x.Marked);
+        }
+
+        private static int CalculateBoard(Board board)
+        {
+            return board.Rows.Where(x=>x.Horizontal).Sum(x => x.Numbers.Where(y => !y.Marked).Sum(y => y.Number));
         }
     }
 }

@@ -2,13 +2,7 @@
 {
     public class Board
     {
-        public Board(int boardNumber)
-        {
-            BoardNumber = boardNumber;
-        }
-
-        public int BoardNumber { get; set; }
-        public int? Placement { get; set; }
+        public bool Finished { get; set; } = false;
         public List<BoardRow> Rows { get; set; } = new();
     }
 
