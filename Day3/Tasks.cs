@@ -1,8 +1,8 @@
 ﻿namespace Day3
 {
-    public static class Tasks
+    public class Tasks
     {
-        public static int Task1()
+        public int Task1()
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
             var rawList = new List<string>(File.ReadAllLines(filePath));
@@ -22,7 +22,7 @@
             return gammaValue * epsilonValue;
         }
 
-        public static int Task2()
+        public int Task2()
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
             var rawList = new List<string>(File.ReadAllLines(filePath));
@@ -62,7 +62,7 @@
             return oxygenValue * scrubberValue;
         }
 
-        static bool CountBits(List<string> list, int index, bool oxygen)
+        private bool CountBits(List<string> list, int index, bool oxygen)
         {
             var one = 0;
             var zero = 0;
