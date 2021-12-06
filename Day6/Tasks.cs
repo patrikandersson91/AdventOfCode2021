@@ -29,18 +29,18 @@
 
         public long Task2()
         {
-            List<int> raw = GetList();
+            List<int> fishes = GetList();
 
-            long[] cycle = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            long[] cycle = new long[9];
             for (int i = 0; i <= 8; i++)
             {
-                cycle[i] = raw.Count(x => x == i);
+                cycle[i] = fishes.Count(x => x == i);
             }
 
             for (int i = 0; i < 256; i++)
             {
                 long newFishes = 0;
-                long[] newCycle = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                long[] newCycle = new long[9];
                 for (int j = 0; j < cycle.Length; j++)
                 {
                     if (j == 0)
@@ -59,7 +59,6 @@
 
             return cycle.Sum();
         }
-
 
         private List<int> GetList()
         {
