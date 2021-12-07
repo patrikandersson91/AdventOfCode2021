@@ -3,7 +3,7 @@
 ### Completed tasks
 
 Day | Task | Stars
-:------------ | :-------------
+:------------ | :------------- | :-------------
 1 | Sonar Sweep |  :star: :star:
 2 | Dive! | :star: :star:
 3 | Binary Diagnostic | :star: :star:
