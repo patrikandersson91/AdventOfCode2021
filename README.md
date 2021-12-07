@@ -2,11 +2,12 @@
 
 ### Completed tasks
 
-Day | Tasks
+Day | Task | Stars
 :------------ | :-------------
-1 | :star: :star:
-2 | :star: :star:
-3 | :star: :star:
-4 | :star: :star:
-5 | :star: :star:
-6 | :star: :star:
+1 | Sonar Sweep |  :star: :star:
+2 | Dive! | :star: :star:
+3 | Binary Diagnostic | :star: :star:
+4 | Giant Squid | :star: :star:
+5 | Hydrothermal Venture | :star: :star:
+6 | Lanternfish | :star: :star:
+7 | The Treachery of Whales  | :star: :star:
