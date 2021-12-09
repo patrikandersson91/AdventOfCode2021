@@ -11,7 +11,7 @@
 
         public int Task2()
         {
-            int[,] raw = GetMultidimensional();
+            var raw = GetMultidimensional();
             var lowPoints = FindLowPoints(raw);
             List<(int x, int y, int nr)> basins = new();
 
@@ -21,7 +21,7 @@
                 FindBasinPoints(raw, basins, lowPoint.x, lowPoint.y, newNr);
             }
 
-            List<int> basinRange = basins.GroupBy(a => a.nr).Select(x => x.Count()).ToList();
+            var basinRange = basins.GroupBy(a => a.nr).Select(x => x.Count()).ToList();
             return basinRange.OrderByDescending(x => x).Take(3).Aggregate((x, y) => x * y);
         }
 
@@ -30,8 +30,8 @@
             if (basins.Any(a => a.x == x && a.y == y)) { return basins; }
             basins.Add(new(x, y, basinNr));
 
-            var xMax = raw.GetLength(0);
-            var yMax = raw.GetLength(1);
+            int xMax = raw.GetLength(0);
+            int yMax = raw.GetLength(1);
 
             if (y != 0 && raw[x, y - 1] != 9) { FindBasinPoints(raw, basins, x, y - 1, basinNr); } // Top
             if (x < xMax - 1 && raw[x + 1, y] != 9) { FindBasinPoints(raw, basins, x + 1, y, basinNr); } // Right
@@ -42,9 +42,9 @@
         }
         private List<(int x, int y)> FindLowPoints(int[,] raw)
         {
-            var lowPoints = new List<(int x, int y)>();
-            var xMax = raw.GetLength(0);
-            var yMax = raw.GetLength(1);
+            List<(int x, int y)> lowPoints = new();
+            int xMax = raw.GetLength(0);
+            int yMax = raw.GetLength(1);
 
             for (int y = 0; y < yMax; y++)
             {
@@ -63,8 +63,8 @@
         }
         private int[,] GetMultidimensional(int length = 100)
         {
-            string[] lines = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt"));
-            int[,] array = new int[length, length];
+            var lines = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt"));
+            var array = new int[length, length];
             for (int y = 0; y < length; y++)
             {
                 for (int x = 0; x < length; x++)
