@@ -12,7 +12,7 @@ Day | Task | Stars
 6 | Lanternfish | :star: :star:
 7 | The Treachery of Whales  | :star: :star:
 8 | Seven Segment Search | :star: :star:
-9 | :clock6: | 
+9 | Smoke Basin | :star: :star:
 10 | :clock6: | 
 11 | :clock6: | 
 12 | :clock6: | 
