@@ -1,4 +1,4 @@
-﻿using Day9;
+﻿using Day09;
 
 Tasks tasks = new();
 Console.WriteLine(tasks.Task1());

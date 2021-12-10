@@ -13,7 +13,7 @@ Day | Task | Stars
 7 | The Treachery of Whales  | :star: :star:
 8 | Seven Segment Search | :star: :star:
 9 | Smoke Basin | :star: :star:
-10 | :clock6: | 
+10 | Syntax Scoring | :star: :star:
 11 | :clock6: | 
 12 | :clock6: | 
 13 | :clock6: | 
