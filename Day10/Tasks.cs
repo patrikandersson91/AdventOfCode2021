@@ -4,134 +4,74 @@ namespace Day10
 {
     public class Tasks
     {
+        Dictionary<char, char> pairs = new Dictionary<char, char> { { '(', ')' }, { '[', ']' }, { '{', '}' }, { '<', '>' } };
+
         public int Task1()
         {
-            var raw = GetRawList();
-            List<char> illegalChars = new();
-
-            var startTags = new List<char> { '(', '[', '{', '<' };
-            var endTags = new List<char> { ')', ']', '}', '>' };
-
-            foreach (var line in raw)
+            var raw = GetList();
+            List<char> illegal = new();
+            foreach (var line in GetList())
             {
-                string charText = "";
+                string tempCharacters = "";
                 foreach (var c in line)
                 {
-                    if (startTags.Contains(c))
+                    if (pairs.Keys.Contains(c)) { tempCharacters += c; }
+                    else if (pairs.TryGetValue(tempCharacters.Last(), out char x) && x == c)
                     {
-                        charText += c;
+                        tempCharacters = tempCharacters.Remove(tempCharacters.Length - 1);
                     }
-                    else
-                    {
-                        var last = charText.Last();
-                        if ((c == ')' && last == '(') ||
-                            (c == ']' && last == '[') ||
-                            (c == '}' && last == '{') ||
-                            (c == '>' && last == '<'))
-                        {
-                            charText = charText.Remove(charText.Length - 1);
-                        }
-                        else
-                        {
-                            illegalChars.Add(c);
-                            break;
-                        }
-                    }
+                    else { illegal.Add(c); break; }
                 }
             }
-
-            var sum = 0;
-            sum += illegalChars.Count(x => x == ')') * 3;
-            sum += illegalChars.Count(x => x == ']') * 57;
-            sum += illegalChars.Count(x => x == '}') * 1197;
-            sum += illegalChars.Count(x => x == '>') * 25137;
-            return sum;
+            var points = new Dictionary<char, int> { { ')', 3 }, { ']', 57 }, { '}', 1197 }, { '>', 25137 } };
+            return illegal.Sum(x => points[x]); // 367227
         }
 
         public long Task2()
         {
-            var raw = GetRawList();
-            var startTags = new List<char> { '(', '[', '{', '<' };
-            var endTags = new List<char> { ')', ']', '}', '>' };
-
-            List<string> incompletedList = new(raw);
+            var raw = GetList();
+            List<string> incompleted = new(raw);
             foreach (var line in raw)
             {
-                string charText = "";
+                string tempCharacters = "";
                 foreach (var c in line)
                 {
-                    if (startTags.Contains(c))
+                    if (pairs.Keys.Contains(c)) { tempCharacters += c; }
+                    else if (pairs.TryGetValue(tempCharacters.Last(), out char x) && x == c)
                     {
-                        charText += c;
+                        tempCharacters = tempCharacters.Remove(tempCharacters.Length - 1);
                     }
                     else
                     {
-                        var last = charText.Last();
-                        if ((c == ')' && last == '(') ||
-                            (c == ']' && last == '[') ||
-                            (c == '}' && last == '{') ||
-                            (c == '>' && last == '<'))
-                        {
-                            charText = charText.Remove(charText.Length - 1);
-                        }
-                        else
-                        {
-                            var item = incompletedList.Find(x => x == line);
-                            incompletedList.Remove(item);
-                            break;
-                        }
+                        incompleted.Remove(incompleted.First(x => x == line));
+                        break;
                     }
                 }
             }
-
 
             List<List<char>> addedRows = new();
-            foreach (var line in incompletedList)
+            foreach (var line in incompleted)
             {
-                List<char> addedChars = new();
-                string charText = "";
+                string tempCharacters = "";
                 foreach (var c in line)
                 {
-                    if (startTags.Contains(c))
-                    {
-                        charText += c;
-                    }
-                    else
-                    {
-                        charText = charText.Remove(charText.Length - 1);
-                    }
-                }
-                foreach (var c in charText.Reverse())
-                {
-                    if (c == '(') { addedChars.Add(')'); }
-                    else if (c == '[') { addedChars.Add(']'); }
-                    else if (c == '{') { addedChars.Add('}'); }
-                    else if (c == '<') { addedChars.Add('>'); }
+                    if (pairs.Keys.Contains(c)) { tempCharacters += c; }
+                    else { tempCharacters = tempCharacters.Remove(tempCharacters.Length - 1); }
                 }
 
-                if (addedChars.Any()) { addedRows.Add(addedChars); };
+                if (tempCharacters.Length > 0)
+                {
+                    List<char> addedChars = tempCharacters.Reverse().Select(x => pairs[x]).ToList();
+                    addedRows.Add(tempCharacters.Reverse().Select(x => pairs[x]).ToList());
+                }
             }
 
-            List<long> sums = new();
-            foreach (var addedChars in addedRows)
-            {
-                long sum = 0;
-                foreach (var c in addedChars)
-                {
-                    sum *= 5;
-                    if (c == ')') { sum += 1; }
-                    else if (c == ']') { sum += 2; }
-                    else if (c == '}') { sum += 3; }
-                    else if (c == '>') { sum += 4; }
-                }
-                sums.Add(sum);
-            }
-            var median = sums.OrderBy(x => x);
-
-            return median.Skip((sums.Count - 1) / 2).First();
+            var points = new Dictionary<char, int> { { ')', 1 }, { ']', 2 }, { '}', 3 }, { '>', 4 } };
+            var results = addedRows.Select(x => x.Aggregate(0L, (x, y) => x * 5 + points[y])).ToList(); 
+            return results.OrderBy(x => x).Skip((addedRows.Count - 1) / 2).First(); // 3583341858 
         }
 
-        private List<string> GetRawList()
+        private List<string> GetList()
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
             return new(File.ReadAllLines(filePath));
