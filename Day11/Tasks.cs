@@ -62,15 +62,16 @@
             int xMax = octopuses.GetLength(0) - 1;
             int yMax = octopuses.GetLength(1) - 1;
 
-            if (x != 0 && y != 0) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x - 1, y - 1); } // TopLeft
-            if (y != 0) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x, y - 1); } // Top
-            if (x < xMax && y != 0) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x + 1, y - 1); } // TopRight
-            if (x < xMax) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x + 1, y); } // Right
-            if (x < xMax && y < yMax) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x + 1, y + 1); } // BottomRight
-            if (y < yMax) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x, y + 1); } // Bottom
-            if (x != 0 && y < yMax) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x - 1, y + 1); } // BottomLeft
-            if (x != 0) { RaiseOctopusEnergy(octopuses, alreadyFlashed, x - 1, y); } // Left
-
+            for (int xx = x - 1; xx <= x + 1; xx++)
+            {
+                for (int yy = y - 1; yy <= y + 1; yy++)
+                {
+                    if (xx >= 0 && yy >= 0 && xx <= xMax && yy <= yMax)
+                    {
+                        RaiseOctopusEnergy(octopuses, alreadyFlashed, xx, yy);
+                    }
+                }
+            }
             return;
         }
 
