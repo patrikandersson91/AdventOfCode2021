@@ -14,7 +14,7 @@ Day | Task | Stars
 8 | Seven Segment Search | :star: :star:
 9 | Smoke Basin | :star: :star:
 10 | Syntax Scoring | :star: :star:
-11 | :clock6: | 
+11 | Dumbo Octopus | :star: :star:
 12 | :clock6: | 
 13 | :clock6: | 
 14| :clock6: | 
