@@ -15,7 +15,7 @@ Day | Task | Stars
 9 | Smoke Basin | :star: :star:
 10 | Syntax Scoring | :star: :star:
 11 | Dumbo Octopus | :star: :star:
-12 | :clock6: | 
+12 | Passage Pathing | :star: :star:
 13 | :clock6: | 
 14| :clock6: | 
 15| :clock6: | 
