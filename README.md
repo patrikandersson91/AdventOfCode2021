@@ -16,7 +16,7 @@ Day | Task | Stars
 10 | Syntax Scoring | :star: :star:
 11 | Dumbo Octopus | :star: :star:
 12 | Passage Pathing | :star: :star:
-13 | :clock6: | 
+13 | Transparent Origami | :star: :star:
 14| :clock6: | 
 15| :clock6: | 
 16| :clock6: | 

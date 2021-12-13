@@ -13,7 +13,6 @@
 
             return totalRoutes.Count; // 3802
         }
-
         public int Task2()
         {
             List<List<string>> totalRoutes = new();
@@ -30,13 +29,12 @@
             if (path == "end")
             {
                 route.Add(path);
-                totalRoutes.Add(route);
-                Console.WriteLine(string.Join(",", route));
-                route.Remove(route.Last());
+                totalRoutes.Add(new(route));
+                route.RemoveAt(route.Count - 1);
                 return;
             }
 
-            if (path.Any(x => char.IsLower(x)) && route.Any(x => x == path))
+            if (path.Any(char.IsLower) && route.Any(x => x == path))
             {
                 if (!checkTwice || visitedTwice != null) { return; }
                 else { visitedTwice = path; }
@@ -44,16 +42,16 @@
 
             route.Add(path);
 
-            var connections = rawPaths.Where(x => 
-                x.from == path && x.to != "start" &&  
-                !(x.to.Any(x => char.IsLower(x)) && route.Any(r => r == x.to) && (!checkTwice || visitedTwice != null)))
+            var connections = rawPaths.Where(x => x.from == path && x.to != "start" &&
+                !(x.to.Any(char.IsLower) && route.Any(r => r == x.to) && (!checkTwice || visitedTwice != null)))
                 .Select(x => x.to).ToList();
 
             foreach (var newPath in connections)
             {
                 PathFind(totalRoutes, route, newPath, checkTwice, visitedTwice);
             }
-            route.Remove(route.Last());
+
+            route.RemoveAt(route.Count - 1);
             return;
         }
         private List<(string from, string to)> GetRawPaths()
