@@ -2,13 +2,13 @@
 {
     public class Tasks
     {
-        private (bool[,] coordinates, List<(string position, int line)> instructions) raw => GetInstructions();
+        private (bool[,] coordinates, List<(string axis, int line)> instructions) raw => GetInstructions();
 
         public int Task1()
         {
             bool[,] coordinates = raw.coordinates;
 
-            coordinates = Fold(coordinates, raw.instructions.First().position, raw.instructions.First().line);
+            coordinates = Fold(coordinates, raw.instructions.First().axis, raw.instructions.First().line);
 
             return CalculateCoordinates(coordinates); // 638
         }
@@ -19,51 +19,43 @@
 
             foreach (var instruction in raw.instructions)
             {
-                coordinates = Fold(coordinates, instruction.position, instruction.line);
+                coordinates = Fold(coordinates, instruction.axis, instruction.line);
             }
 
-            PrintCoordinates(coordinates);
+            PrintCoordinates(coordinates); // CJCKBAPB
             return;
         }
 
-
         void PrintCoordinates(bool[,] coordinates)
         {
-            var xMax = coordinates.GetLength(0);
-            var yMax = coordinates.GetLength(1);
-
-            for (int y = 0; y < yMax; y++)
+            Console.WriteLine();
+            for (int y = 0; y < coordinates.GetLength(1); y++)
             {
-                for (int x = 0; x < xMax; x++)
+                for (int x = 0; x < coordinates.GetLength(0); x++)
                 {
                     Console.Write(coordinates[x, y] ? "#" : ".");
                 }
                 Console.WriteLine();
             }
-
-            Console.WriteLine();
         }
         int CalculateCoordinates(bool[,] coordinates)
         {
-            var xMax = coordinates.GetLength(0);
-            var yMax = coordinates.GetLength(1);
-
             int count = 0;
-            for (int y = 0; y < yMax; y++)
+            for (int y = 0; y < coordinates.GetLength(1); y++)
             {
-                for (int x = 0; x < xMax; x++)
+                for (int x = 0; x < coordinates.GetLength(0); x++)
                 {
                     if (coordinates[x, y]) { count++; }
                 }
             }
             return count;
         }
-        private bool[,] Fold(bool[,] coordinates, string position, int line)
+        private bool[,] Fold(bool[,] coordinates, string axis, int line)
         {
             var xMax = coordinates.GetLength(0);
             var yMax = coordinates.GetLength(1);
 
-            if (position == "x")
+            if (axis == "x")
             {
                 var newCords = new bool[line, yMax];
                 for (int y = 0; y < yMax; y++)
@@ -107,8 +99,8 @@
             List<(string position, int line)> instructions = new();
             foreach (var item in part2)
             {
-                var folding = item.Split(" ").Last().Split("=");
-                instructions.Add(new(folding[0], int.Parse(folding[1])));
+                var command = item.Split(" ").Last().Split("=");
+                instructions.Add(new(command[0], int.Parse(command[1])));
             }
 
             return (coordinates, instructions);
