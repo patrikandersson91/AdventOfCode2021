@@ -17,7 +17,7 @@ Day | Task | Stars
 11 | Dumbo Octopus | :star: :star:
 12 | Passage Pathing | :star: :star:
 13 | Transparent Origami | :star: :star:
-14| Extended Polymerization | :star: 
+14| Extended Polymerization | :star: :star: 
 15| :clock6: | 
 16| :clock6: | 
 17| :clock6: | 
