@@ -18,7 +18,7 @@ Day | Task | Stars
 12 | Passage Pathing | :star: :star:
 13 | Transparent Origami | :star: :star:
 14| Extended Polymerization | :star: :star: 
-15| :clock6: | 
+15| Chiton | :star: :star:
 16| :clock6: | 
 17| :clock6: | 
 18| :clock6: | 
