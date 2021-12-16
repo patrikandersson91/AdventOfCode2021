@@ -19,13 +19,3 @@ Day | Task | Stars
 13 | Transparent Origami | :star: :star:
 14| Extended Polymerization | :star: :star: 
 15| Chiton | :star: :star:
-16| :clock6: | 
-17| :clock6: | 
-18| :clock6: | 
-19| :clock6: | 
-20| :clock6: | 
-21| :clock6: | 
-22| :clock6: | 
-23| :clock6: | 
-24| :clock6: | 
-25| :clock6: | 
