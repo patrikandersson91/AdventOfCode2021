@@ -31,8 +31,7 @@
                         var totalRisk = totalMap[p] + map[n];
                         totalMap[n] = totalRisk;
                         if (n == last) { break; }
-                        var h = 0;
-                        queue.Enqueue(n, totalRisk + h);
+                        queue.Enqueue(n, totalRisk);
                     }
                 }
             }
