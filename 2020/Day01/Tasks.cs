@@ -3,7 +3,8 @@
 internal class Tasks
 {
     private List<int> rawList => GetRawList();
-    public int Task1()
+
+    internal int Task1()
     {
         foreach (var x in rawList)
         {
@@ -19,7 +20,7 @@ internal class Tasks
         throw new Exception("Could not find numbers.");
     }
 
-    public int Task2()
+    internal int Task2()
     {
         foreach (var x in rawList)
         {

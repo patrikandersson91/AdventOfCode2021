@@ -5,4 +5,4 @@
 Day | Task | Stars
 :------------ | :------------- | :-------------
 1 | Report Repair | :star: :star:
-2 | Password Philosophy | -
+2 | Password Philosophy | :star: :star:
