@@ -1,4 +1,4 @@
-﻿namespace Day03;
+﻿namespace Day01;
 
 internal class Tasks
 {
