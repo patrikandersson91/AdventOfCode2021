@@ -1,5 +1,4 @@
 ﻿using Day02;
-using System.Threading.Tasks;
 
 Tasks tasks = new();
 Console.WriteLine(tasks.Task1());

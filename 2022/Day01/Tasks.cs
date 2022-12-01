@@ -11,15 +11,15 @@ internal class Tasks
 
     internal int Task2()
     {
-        return RawList.OrderByDescending(x=>x).Take(3).Sum();
+        return RawList.Order().TakeLast(3).Sum();
     }
 
     private List<int> GetRawList()
     {
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\input.txt");
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "input.txt");
         var groups = File.ReadAllText(filePath).Split("\r\n\r\n").ToList();
 
-        var sizes = new List<int>();
+        List<int> sizes = new();
         foreach (var item in groups)
         {
             sizes.Add(item.Split("\r\n").Select(int.Parse).Sum());
