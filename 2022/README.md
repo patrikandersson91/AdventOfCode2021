@@ -4,4 +4,4 @@
 
 Day | Task | Stars
 :------------ | :------------- | :-------------
-1 | Calorie Counting | - :star: :star:
+1 | Calorie Counting | :star: :star:
