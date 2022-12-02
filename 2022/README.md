@@ -5,3 +5,4 @@
 Day | Task | Stars
 :------------ | :------------- | :-------------
 1 | Calorie Counting | :star: :star:
+2 | Rock Paper Scissors | :star: :star:

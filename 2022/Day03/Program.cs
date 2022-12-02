@@ -1,0 +1,5 @@
+﻿using Day03;
+
+Tasks tasks = new();
+Console.WriteLine($"Task 1: {tasks.Task1()}");
+Console.WriteLine($"Task 1: {tasks.Task2()}");
