@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Day02;
+﻿namespace Day02;
 
 internal class Tasks
 {
