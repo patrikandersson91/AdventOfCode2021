@@ -8,3 +8,4 @@ Day | Task | Stars
 2 | Rock Paper Scissors | :star: :star:
 3 | Rucksack Reorganization | :star: :star:
 4 | Camp Cleanup | :star: :star:
+5 | Supply Stacks | :star: :star:
