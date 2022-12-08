@@ -10,3 +10,4 @@ Day | Task | Stars
 4 | Camp Cleanup | :star: :star:
 5 | Supply Stacks | :star: :star:
 6 | Tuning Trouble | :star: :star:
+9 | Treetop Tree House | :star: :star:
