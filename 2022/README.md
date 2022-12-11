@@ -12,5 +12,5 @@ Day | Task | Stars
 6 | Tuning Trouble | :star: :star:
 7 | No Space Left On Device | :star: :star: 
 8 | Treetop Tree House | :star: :star:
-9 | Rope Bridge | :star:
+9 | Rope Bridge | :star: :star:
 10 | Cathode-Ray Tube | :star: :star:
