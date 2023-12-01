@@ -2,7 +2,7 @@
 
 ### Completed tasks
 
-Day | Task | Stars :star: :star:
+Day | Task | Stars 
 :------------ | :------------- | :-------------
-1 | - | -
+1 | Trebuchet?! | :star:
 

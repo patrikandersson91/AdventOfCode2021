@@ -1,4 +1,6 @@
-﻿namespace Day01;
+﻿using System.Text.RegularExpressions;
+
+namespace Day01;
 
 internal class Tasks
 {
@@ -19,12 +21,19 @@ internal class Tasks
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "input.txt");
         var groups = File.ReadAllText(filePath).Split("\r\n\r\n").ToList();
 
-        List<int> sizes = new();
-        foreach (var item in groups)
+        List<int> numbers = new();
+        foreach (var row in groups)
         {
-            sizes.Add(item.Split("\r\n").Select(int.Parse).Sum());
+            var rows = row.Split("\r\n");
+            foreach (var line in rows)
+            {
+                var numbersOnly = Regex.Replace(line, "[^0-9.]", "");
+                char firstNumber = numbersOnly.First();
+                char lastNumber = numbersOnly.Last();
+                numbers.Add(int.Parse(firstNumber.ToString() + lastNumber.ToString()));
+            }
         }
 
-        return sizes;
+        return numbers;
     }
 }
