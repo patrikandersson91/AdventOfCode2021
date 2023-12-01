@@ -4,5 +4,5 @@
 
 Day | Task | Stars 
 :------------ | :------------- | :-------------
-1 | Trebuchet?! | :star:
+1 | Trebuchet?! | :star: :star:
 
